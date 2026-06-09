@@ -1,4 +1,4 @@
-import { Resource } from "../types/resource";
+import type { Resource } from "../types/resource";
 
 interface ResourceCardProps {
     resource: Resource;
@@ -29,11 +29,12 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
                     {resource.cost}
                 </span>
             </div>
+            <a
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-blue-600 hover:underline"
-            <a>
+            >
                 {resource.title}
             </a>
             <p className="text-sm text-gray-500">{resource.description}</p>

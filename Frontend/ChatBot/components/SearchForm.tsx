@@ -2,7 +2,7 @@ import { useState } from "react";
 import { fetchResources } from "../services/api";
 import type { Resource } from "../types/resource";
 
-const LANGUAGES = ['Arabic', 'French', 'English', 'Amazigh', 'Turkish'];
+const LANGUAGES = ['English', 'French', 'Arabic', 'Amazigh', 'Turkish'];
 
 interface SearchFormProps {
     onResults: (resources: Resource[]) => void;
