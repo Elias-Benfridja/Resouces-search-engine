@@ -5,3 +5,16 @@ export type Resource = {
     cost:        'free' | 'paid' | 'freemium';
     description: string;
 }
+
+export type Rating = {
+    resource_url: string;
+    resource_title: string;
+    stars: number
+}
+
+export type RatingStats = {
+    average: number;
+    count:   number;
+}
+
+

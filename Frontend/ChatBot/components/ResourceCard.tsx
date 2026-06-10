@@ -1,5 +1,5 @@
-import type { Resource } from "../types/resource";
-
+import type { Resource } from "../types/types";
+import StarRating  from "../components/StarRating"
 interface ResourceCardProps {
     resource: Resource;
 }
@@ -39,6 +39,10 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
             </a>
             <p className="text-sm text-gray-500">{resource.description}</p>
             <span className="text-xs text-gray-400 capitalize">{resource.type.replace('_', ' ')}</span>
+            <StarRating
+            resource_url={resource.url}
+            resource_title={resource.title}
+            />
         </div>
     );
 };
