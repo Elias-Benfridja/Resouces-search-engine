@@ -1,4 +1,4 @@
-import type { Resource } from '../types/resource';
+import type { Resource } from '../types/types';
 
 const TYPES: Resource['type'][] = ['video', 'article', 'course', 'research_paper', 'book', 'website'];
 const COSTS: Resource['cost'][] = ['free', 'paid', 'freemium'];

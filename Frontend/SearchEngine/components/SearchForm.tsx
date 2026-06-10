@@ -1,36 +1,20 @@
 import { useState } from "react";
-import { fetchResources } from "../services/api";
-import type { Resource } from "../types/resource";
 
 const LANGUAGES = ['English', 'French', 'Arabic', 'Amazigh', 'Turkish'];
 
 interface SearchFormProps {
-    onResults: (resources: Resource[]) => void;
-    onLoading: (loading: boolean) => void;
-    onError: (error: string | null) => void;
+    onSubmit: (topic: string, language: string) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onResults, onLoading, onError }) => {
-    const [topic, setTopic] = useState('')
-    const [language, setLanguage] = useState('ENGLISH')
+const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
+    const [topic, setTopic] = useState('');
+    const [language, setLanguage] = useState('English');
 
-    const handleSubmit = async () => {
-        if(!topic.trim()){
-            onError('Please enter a topic');
-            return;
-        }
-        onLoading(true);
-        onError(null);
-
-        try {
-            const resources = await fetchResources(topic, language.toLowerCase());
-            onResults(resources);
-        } catch (error) {
-            onError(error instanceof Error ? error.message : 'Something went wrong');
-        } finally {
-            onLoading(false);
-        }
+    const handleSubmit = () => {
+        if (!topic.trim()) return;
+        onSubmit(topic, language);
     };
+
     return (
         <div className="flex flex-col gap-4">
             <input
@@ -57,7 +41,6 @@ const SearchForm: React.FC<SearchFormProps> = ({ onResults, onLoading, onError }
             </button>
         </div>
     );
+};
 
-}
-
-export default SearchForm
+export default SearchForm;

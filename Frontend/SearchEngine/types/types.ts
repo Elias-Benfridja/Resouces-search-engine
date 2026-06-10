@@ -17,4 +17,8 @@ export type RatingStats = {
     count:   number;
 }
 
+export type History = {
+    topic:    string;
+    language: string;
+}
 

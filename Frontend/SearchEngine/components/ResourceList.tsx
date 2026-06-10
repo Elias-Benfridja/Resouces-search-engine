@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Resource } from '../types/resource';
+import type { Resource } from '../types/types';
 import ResourceCard from './ResourceCard';
 import FilterBar from './FilterBar';
 
