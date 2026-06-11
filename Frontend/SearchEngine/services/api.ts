@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Resource, Rating, RatingStats } from "../types/types";
+import type { list } from "postcss";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api";
 
@@ -47,9 +48,25 @@ export const fetchRating = async (
 ): Promise<RatingStats> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/ratings/`, {
-    params: { url: resource_url }
+      params: { url: resource_url },
     });
     return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Server error");
+    } else {
+      throw new Error("Network error");
+    }
+  }
+};
+
+export const askQuestion = async (question: string, resource: Resource): Promise<string> => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/chat/`, {
+      question,
+      resource
+    });
+    return response.data.answer;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || "Server error");

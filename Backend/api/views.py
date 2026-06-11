@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .serializers import ResourceSerializer, RatingSerializer
+from .serializers import ResourceSerializer, RatingSerializer, ChatSerializer
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .services import get_resources
+from .services import get_resources, chat_with_resources
 from .models import Rating
 from django.db.models import Avg, Count
 # Create your views here.
@@ -43,3 +43,17 @@ class RatingView(generics.GenericAPIView):
         
         
         return Response({'average': result['average'] or 0,'count': result['count']}, status=status.HTTP_200_OK)
+    
+class ChatView(generics.GenericAPIView):
+    serializer_class = ChatSerializer
+    
+    def post(self, request):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        
+        question = serializer.validated_data['question']
+        resource = serializer.validated_data['resource']
+        
+        answer = chat_with_resources(question, resource)
+        
+        return Response({'answer': answer}, status=status.HTTP_200_OK)
