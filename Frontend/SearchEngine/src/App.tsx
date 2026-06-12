@@ -52,8 +52,8 @@ const App = () => {
         </h1>
       </nav>
 
-      <div className="flex flex-1">
-        <aside className="w-64 bg-white border-r border-gray-200 p-6 flex flex-col gap-6 min-h-screen">
+      <div className="flex flex-col md:flex-row flex-1">
+        <aside className="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col gap-6">
           <div>
             <h2 className="text-lg font-bold text-gray-800">Resource Filter</h2>
             <p className="text-sm text-gray-400 mt-1">
@@ -66,6 +66,10 @@ const App = () => {
           <SearchHistoryComponent
             history={history}
             onHistoryClick={handleSearch}
+            onClear={() => {
+                setHistory([]);
+                localStorage.removeItem('search_history');
+            }}
           />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -78,7 +82,7 @@ const App = () => {
 
         <main className="flex-1 p-8">
           {loading ? (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Array.from({ length: 6 }).map((_, i) => (
                 <SkeletonCard key={i} />
               ))}

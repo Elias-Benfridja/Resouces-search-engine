@@ -40,7 +40,8 @@ Example format:
 
 def build_prompt_chatbot(question: str, resource: dict) -> str:
     return f"""
-You are a helpful assistant. You can ONLY answer questions based on the following resource:
+You are a helpful assistant. Answer based on the following resource.
+If page content could not be loaded, answer using the title and description only.
 
 Title: {resource['title']}
 URL: {resource['url']}
@@ -79,9 +80,8 @@ def get_resources(topic: str, language: str) -> list:
     # Save cache
     Query.objects.create(
         topic = topic.lower(),
-        language = language,
+        language = language.lower(),
         results = resources,
-        budget = 'e'
     )
     return resources
 
@@ -89,7 +89,7 @@ def chat_with_resources(question: str, resource: dict) -> str:
     try:
         resource['page_content'] = fetch_page_content(resource['url'])
     except:
-        resource['page_content'] = ''
+        resource['page_content'] = 'Page content could not be loaded.'
     
     prompt = build_prompt_chatbot(question, resource)
     

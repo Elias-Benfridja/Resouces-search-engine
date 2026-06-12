@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const LANGUAGES = ['English', 'French', 'Arabic', 'Amazigh', 'Turkish'];
+const LANGUAGES = ['English', 'French', 'Arabic', 'Amazigh', 'Turkish', 'Spanish', 'German', 'Portuguese', 'Chinese'];
 
 interface SearchFormProps {
     onSubmit: (topic: string, language: string) => void;
