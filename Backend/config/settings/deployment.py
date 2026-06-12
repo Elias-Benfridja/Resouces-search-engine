@@ -6,5 +6,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['resouces-search-engine-production.up.railway.app']
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        engine='django.db.backends.postgresql'
+    )
 }

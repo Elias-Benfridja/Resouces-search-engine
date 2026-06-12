@@ -30,7 +30,7 @@ idna==3.18
 packaging==26.2
 proto-plus==1.28.0
 protobuf==5.29.6
-psycopg2-binary==2.9.12
+psycopg[binary]>=3.0
 pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==3.0
