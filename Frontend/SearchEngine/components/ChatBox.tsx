@@ -40,6 +40,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({ resource }) => {
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="e.g. Which resource is best for beginners?"
                     className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleAsk();
+                    }}
                 />
                 <button
                     onClick={handleAsk}

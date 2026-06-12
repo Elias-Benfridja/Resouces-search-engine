@@ -23,6 +23,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="Enter a STEM topic..."
                 className="border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSubmit();
+                }}
             />
             <select
                 value={language}

@@ -3,6 +3,7 @@ import type { Resource, History } from "../types/types";
 import SearchForm from "../components/SearchForm";
 import ResourceList from "../components/ResourceList";
 import SearchHistoryComponent from "../components/SearchHistory";
+import SkeletonCard from "../components/SkeletonCard";
 import { fetchResources } from "../services/api";
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
     try {
       const results = await fetchResources(topic, language.toLowerCase());
       setResources(results);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       setError(error instanceof Error ? error.message : "Something went wrong");
     } finally {
@@ -75,7 +77,13 @@ const App = () => {
         </aside>
 
         <main className="flex-1 p-8">
-          {!searched && !loading ? (
+          {loading ? (
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          ) : !searched ? (
             <div className="flex flex-col items-center justify-center h-full text-center gap-4">
               <div className="bg-blue-50 p-6 rounded-2xl">
                 <span className="text-5xl">🔬</span>
@@ -88,7 +96,7 @@ const App = () => {
                 across videos, courses, papers and more.
               </p>
             </div>
-          ) : searched && resources.length === 0 && !loading ? (
+          ) : searched && resources.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center gap-4">
               <span className="text-5xl">🔍</span>
               <h2 className="text-2xl font-bold text-gray-700">
@@ -101,10 +109,6 @@ const App = () => {
             </div>
           ) : (
             <>
-              <div className="flex items-center gap-2 bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-2 mb-4 text-sm text-yellow-700">
-                <span>⚠️</span>
-                <p>Resources are AI-generated — verify links before use.</p>
-              </div>
               <p className="text-sm text-gray-500 mb-4">
                 Found{" "}
                 <span className="font-semibold text-gray-700">
@@ -119,6 +123,24 @@ const App = () => {
                   {searchedLanguage}
                 </span>
               </p>
+              <div className="flex flex-wrap gap-3 mb-4">
+                {Object.entries(
+                  resources.reduce(
+                    (acc, r) => {
+                      acc[r.type] = (acc[r.type] || 0) + 1;
+                      return acc;
+                    },
+                    {} as Record<string, number>,
+                  ),
+                ).map(([type, count]) => (
+                  <span
+                    key={type}
+                    className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
+                  >
+                    {count} {type.replace("_", " ")}
+                  </span>
+                ))}
+              </div>
               <ResourceList resources={resources} />
             </>
           )}
