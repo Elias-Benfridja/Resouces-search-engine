@@ -109,7 +109,7 @@ def fetch_page_content(url: str) -> str:
         parse = BeautifulSoup(response.content, 'html.parser')
         text = parse.text
         text = ' '.join(text.split())
-        return text[:5000]
+        return text[:7000]
     except Exception as e:
         raise Exception(f"Url error: {str(e)}")
     
