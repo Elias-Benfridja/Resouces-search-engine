@@ -114,7 +114,7 @@ def fetch_page_content(url: str) -> str:
         raise Exception(f"Url error: {str(e)}")
     
 def fetch_search_results(query: str) -> list:
-    GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+    GOOGLE_API_KEY = os.environ.get('CUSTOM_SEARCH_API_KEY')
     SEARCH_ENGINE_ID = os.environ.get('SEARCH_ENGINE_ID')
     try:
         response = requests.get(f'https://www.googleapis.com/customsearch/v1?key={GOOGLE_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}')
