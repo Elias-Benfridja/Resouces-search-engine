@@ -71,7 +71,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://resouces-search-engine.vercel.app/"
+    "https://resouces-search-engine.vercel.app"
 ]
 
 LANGUAGE_CODE = 'en-us'
