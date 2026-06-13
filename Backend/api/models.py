@@ -14,7 +14,7 @@ class Query(models.Model):
         PORTUGUESE = 'pt', 'portuguese'
         CHINESE = 'zh', 'chinese'
     topic = models.CharField(max_length=50)
-    language = models.CharField(max_length=2, choices=Language.choices)
+    language = models.CharField(max_length=20)
     results = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     
